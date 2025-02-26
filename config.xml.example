@@ -1,191 +1,254 @@
-<config>
-
-  <!-- Jabber account information to connect with -->
-  <jabber>
-    <username>chatbot</username>
-    <password>secret</password>
-    <resource>ChatBot</resource>
-    <server>localhost</server>
-    <port>5222</port>
-    <connectiontype>tcpip</connectiontype>
-    <ssl>0</ssl>
-  </jabber>
-
-
-  <!-- ChatBot specific config options -->
-  <chatbot>
-
-    <!-- Period of inactivity in a channel before ChatBot polls -->
-    <!-- for an active connection.  In minutes.                 -->
-    <timeout>1</timeout>
-
-    <!-- If ChatBot determines that the channel server is down, -->
-    <!-- ie. not responding or crashed, this is the amount of   -->
-    <!-- time to wait in between join requests.  In minutes.    -->
-    <downtime>5</downtime>
-
-    <!-- Path to the plugin directory -->
-    <plugindir>./plugins</plugindir>
-
-    <!-- Path to the channels file that tells us which channels -->
-    <!-- chatbot should join.  You can use the online channel   -->
-    <!-- controls as well as this file to control which rooms   -->
-    <!-- chatbot joins.                                         -->
-    <channels>./channels.xml</channels>
-
-    <!-- Allow someone to let chatbot get all types of messages -->
-    <!-- by making them select which ones to allow to pass      -->
-    <!-- through.  Uncomment any that you want to use.          -->
-    <messages>
-      <!--<normal/>-->
-      <chat/>
-      <groupchat/>
-    </messages>
-
-  </chatbot>
-
-  <!-- Plugins to load.  This allows you to control which plugins are  -->
-  <!-- available and used.  If two plugins provide the same function   -->
-  <!-- this allows you to turn one off.                                -->
-  <load>
-    <plugin>channel.pl</plugin>
-    <plugin>debug.pl</plugin>
-    <plugin>dice.pl</plugin>
-    <!--plugin>eliza.pl</plugin-->
-    <plugin>flags.pl</plugin>
-    <plugin>help.pl</plugin>
-    <plugin>join.pl</plugin>
-    <!--<plugin>joinsql.pl</plugin>-->
-    <plugin>keyword.pl</plugin>
-    <plugin>last.pl</plugin>
-    <plugin>log.pl</plugin>
-    <plugin>query.pl</plugin>
-    <!--<plugin>querysql.pl</plugin>-->
-    <!--plugin>role.pl</plugin-->
-		<plugin>rss-reader.pl</plugin>
-    <plugin>seen.pl</plugin>
-    <!--<plugin>seensql.pl</plugin>-->
-		<plugin>spool.pl</plugin>
-    <plugin>time.pl</plugin>
-    <plugin>uptime.pl</plugin>
-    <plugin>url.pl</plugin>
-  </load>
-
-  <!-- Plugin configuration.  The top level tag must match the name of -->
-  <!-- the plugin file.  ie.  <last/> -> last.pl                       -->
-  <plugins>
-
-    <!-- Global pluign password to make it easy to control all features -->
-    <!-- from one password.  You can always use the password in the     -->
-    <!-- plugin for finer control.                                      -->
-    <password>topSecret</password>
-
-    <!-- Plugin to handle telling ChatBot to join and leave channels -->
-    <channel>
-      <!--<password>channel</password>-->
-    </channel>
-
-    <!-- Plugin to handle printing debug info for problem diagnosing -->
-    <debug>
-      <!--<password>debug</password>-->
-    </debug>
-
-    <!-- Plugin to handle rolling dice and D&D characters. -->
-    <dice>
-      <!-- Max number of sides per die -->
-      <maxsize>1000000</maxsize>
-      <!-- Max number of die per roll -->
-      <maxdie>100</maxdie>
-      <!-- If no number die is specified, use this many -->
-      <defaultdie>1</defaultdie>
-      <!-- If no size of die is specified, use this many sides -->
-      <defaultsize>6</defaultsize>
-    </dice>
-
-    <!-- Plugin to handle toggling the flags in a channel -->
-    <flags>
-      <!--<password>flags</password>-->
-    </flags>
-
-    <!-- Plugin to handle announcing join messages. -->
-    <join>
-      <messages>./join_messages.xml</messages>
-      <!--<password>join</password>-->
-    </join>
-
-    <!-- Plugin to handle join messages reqeusts and sets via Mysql -->
-    <joinsql>
-      <mysql>
-        <database>chatbot</database>
-        <host>localhost</host>
-        <user>mysql-user</user>
-        <pass>mysql-pass</pass>
-        <table>joinsql</table>
-      </mysql>
-      <!--<password>joinsql</password>-->
-    </joinsql>
-
-    <!-- Plugin to keep track of the last thing said by every user  -->
-    <!-- so that someone can query it and see what they said before -->
-    <!-- they logged out last.                                      -->
-    <last>
-      <!-- Define how long to keep the messages around in days -->
-      <daystolive>14</daystolive>
-
-      <!-- How many messages to return by default -->
-      <defaultcount>5</defaultcount>
-
-      <!-- Define how many messages to keep before rotating them -->
-      <maxmessages>10</maxmessages>
-
-      <!-- Location of file for persistant storage -->
-      <storage>./last_storage.xml</storage>
-    </last>
-
-    <!-- Plugin to handle logging the contents of a groupchat. -->
-    <log>
-      <publiclogs>./logs</publiclogs>
-      <privatelogs>./logs-secret</privatelogs>
-      <!--<headerfile>./log_header.html</headerfile>-->
-      <!--<footerfile>./log_footer.html</footerfile>-->
-    </log>
-
-    <!-- Plugin to handle query requests and sets. -->
-    <query>
-      <values>./queries.xml</values>
-      <!--password>querysecret</password-->
-    </query>
-
-    <!-- Plugin to handle query requests and sets via Mysql -->
-    <querysql>
-      <mysql>
-        <database>chatbot</database>
-        <host>localhost</host>
-        <user>mysql-user</user>
-        <pass>mysql-pass</pass>
-        <table>querysql</table>
-      </mysql>
-      <!--<password>querysql</password>-->
-    </querysql>
-
-    <!-- Plugin to keep track the seen list so that users can see -->
-    <!-- when the user was last "seen" in the channel.            -->
-    <seen>
-      <!-- Location of file for persistant storage -->
-      <storage>./seen_storage.xml</storage>
-    </seen>
-
-    <!-- Plugin to handle seen requests and sets via Mysql -->
-    <seensql>
-      <mysql>
-        <database>chatbot</database>
-        <host>localhost</host>
-        <user>mysql-user</user>
-        <pass>mysql-pass</pass>
-        <table>seensql</table>
-      </mysql>
-      <!--<password>seensql</password>-->
-    </seensql>
-
-  </plugins>
-</config>
+<xml xmlns="http://www.w3.org/1999/xhtml" is_dbot="true" collection="false">
+  <variables>
+    <variable type="" id="lZdyK-/sZA2];D4jTuaz" islocal="false" iscloud="false">Stake</variable>
+    <variable type="" id="hgO5F:thZg;b1=w_4lcu" islocal="false" iscloud="false">Win Stake</variable>
+    <variable type="" id="FprLy*/jC7Sr7j4V{/R)" islocal="false" iscloud="false">text1</variable>
+    <variable type="" id="cMv:ag;^f$1G,_}x:3AO" islocal="false" iscloud="false">Loss</variable>
+    <variable type="" id="KQqm/fGZyJc?n%=6`4~!" islocal="false" iscloud="false">list</variable>
+    <variable type="" id="tfZ.p~Mnf{#f=T}7i8H^" islocal="false" iscloud="false">Trend List</variable>
+    <variable type="" id="W4rVFpI~Y?k?$sP=d~D." islocal="false" iscloud="false">Random</variable>
+    <variable type="" id="h=adXh,/1,RmbIgrp/-l" islocal="false" iscloud="false">text2</variable>
+    <variable type="" id="t@:T/8N`9y}$)xZo:Wrg" islocal="false" iscloud="false">text5</variable>
+    <variable type="" id="U$WIa2Av8Na9X#xr[o_t" islocal="false" iscloud="false">Expected Profit</variable>
+    <variable type="" id="iNdUgN[R:x{_C+^zsB^|" islocal="false" iscloud="false">Stop Loss</variable>
+    <variable type="" id="sLH[U4c4}sl]aJ)*x]bk" islocal="false" iscloud="false">text3</variable>
+    <variable type="" id="h8~EYuy|uy#sQB%bfazb" islocal="false" iscloud="false">text6</variable>
+    <variable type="" id="tphmi4!L2){`#IzGR$Qz" islocal="false" iscloud="false">text</variable>
+    <variable type="" id="{s)~T%,dZND9oWhOO?^|" islocal="false" iscloud="false">text4</variable>
+    <variable type="" id="!w#^9=$_M%Q/h(Fo(2;D" islocal="false" iscloud="false">text7</variable>
+    <variable type="" id="9weRD|^nv47[~{TciZfs" islocal="false" iscloud="false">NAME</variable>
+    <variable type="" id="3(8V8Va-B_ssazHfBrdu" islocal="false" iscloud="false">list1</variable>
+    <variable type="" id="M[9g$#gH]gv{M1+(!KFz" islocal="false" iscloud="false">text8</variable>
+    <variable type="" id="b^Vy![,.1Hk4DL;ugx%0" islocal="false" iscloud="false">text9</variable>
+    <variable type="" id="P5CP(bSg#~f0=SYdpp^p" islocal="false" iscloud="false">text10</variable>
+    <variable type="" id="mu_2=Q*VWeV4sLIHH0Eb" islocal="false" iscloud="false">text11</variable>
+    <variable type="" id="HNLchC%RP`k5vfwt3{S9" islocal="false" iscloud="false">text12</variable>
+    <variable type="" id="!reJ/?vYgXi?T2$r8%Y8" islocal="false" iscloud="false">text13</variable>
+    <variable type="" id="7@)b.ltra9`L0`1dp_9|" islocal="false" iscloud="false">text14</variable>
+    <variable type="" id="H+Pz7I.Ec1fv*DiKaPKw" islocal="false" iscloud="false">text15</variable>
+  </variables>
+  <block type="trade_definition" id="6gKQWNS:v2{dLZIZf)vr" deletable="false" x="0" y="0">
+    <statement name="TRADE_OPTIONS">
+      <block type="trade_definition_market" id="+]6fp%JtwRa1vZ]5n)[]" deletable="false" movable="false">
+        <field name="MARKET_LIST">synthetic_index</field>
+        <field name="SUBMARKET_LIST">random_index</field>
+        <field name="SYMBOL_LIST">1HZ100V</field>
+        <next>
+          <block type="trade_definition_tradetype" id="67U`!UK0Ja-n:Dnu[N1x" deletable="false" movable="false">
+            <field name="TRADETYPECAT_LIST">digits</field>
+            <field name="TRADETYPE_LIST">overunder</field>
+            <next>
+              <block type="trade_definition_contracttype" id="LS0k|A*(MCvU=i2S7j`{" deletable="false" movable="false">
+                <field name="TYPE_LIST">both</field>
+                <next>
+                  <block type="trade_definition_candleinterval" id="3rHO8}|qaQ:vTFr.;W/g" deletable="false" movable="false">
+                    <field name="CANDLEINTERVAL_LIST">60</field>
+                    <next>
+                      <block type="trade_definition_restartbuysell" id="cP[p$M7$+FFb5|B[iyos" deletable="false" movable="false">
+                        <field name="TIME_MACHINE_ENABLED">FALSE</field>
+                        <next>
+                          <block type="trade_definition_restartonerror" id="bLQVd|OZAW)x~Yh!rfk1" deletable="false" movable="false">
+                            <field name="RESTARTONERROR">TRUE</field>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="INITIALIZATION">
+      <block type="text_print" id="ch1-40D_Rs2{ZnBUXvUs" collapsed="true">
+        <value name="TEXT">
+          <shadow type="text" id="G7HG0@%K?s#L6SWDvABK">
+            <field name="TEXT">AUTO Over 2 & Under 7 Bot</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="variables_set" id="9HU2NmkN5B[2,kqR^:e!">
+            <field name="VAR" id="lZdyK-/sZA2];D4jTuaz" variabletype="">Stake</field>
+            <value name="VALUE">
+              <block type="math_number" id="Th@;$_bh~MP:Ymbcf^.?">
+                <field name="NUM">0.35</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="lKiQX+3s.#1j)+zX~:3T">
+                <field name="VAR" id="hgO5F:thZg;b1=w_4lcu" variabletype="">Win Stake</field>
+                <value name="VALUE">
+                  <block type="math_number" id="c!wGX~HR]@}Ae:0Y=j0P">
+                    <field name="NUM">0.35</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="U3)W,k*d?3iV:CxtBA.m">
+                    <field name="VAR" id="KQqm/fGZyJc?n%=6`4~!" variabletype="">list</field>
+                    <value name="VALUE">
+                      <block type="lists_create_with" id="I=Vvged}%,STIVKP2BX.">
+                        <mutation items="0"></mutation>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variables_set" id="QFy~liNc({EVW@R3Wv%Q">
+                        <field name="VAR" id="tfZ.p~Mnf{#f=T}7i8H^" variabletype="">Trend List</field>
+                        <value name="VALUE">
+                          <block type="variables_get" id="LJr.g+L2Gf(-ARhMB2.!">
+                            <field name="VAR" id="KQqm/fGZyJc?n%=6`4~!" variabletype="">list</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set" id="g56oIW2^C}3D7.T**aO4">
+                            <field name="VAR" id="U$WIa2Av8Na9X#xr[o_t" variabletype="">Expected Profit</field>
+                            <value name="VALUE">
+                              <block type="math_number" id="~uD)b}_rN~B~tg20=#.@">
+                                <field name="NUM">5</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="variables_set" id="ik+wkDY}C.FMj=zz4]In">
+                                <field name="VAR" id="iNdUgN[R:x{_C+^zsB^|" variabletype="">Stop Loss</field>
+                                <value name="VALUE">
+                                  <block type="math_number" id="AeB6@!}|*A9][kg!~-J:">
+                                    <field name="NUM">50</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="SUBMARKET">
+      <block type="trade_definition_tradeoptions" id="]n{r_Hn;W//uTArMa.VL">
+        <mutation has_first_barrier="false" has_second_barrier="false" has_prediction="true"></mutation>
+        <field name="DURATIONTYPE_LIST">t</field>
+        <value name="DURATION">
+          <shadow type="math_number" id="hFfpU=LS8RpSpSYaz(-|">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="AMOUNT">
+          <shadow type="math_number" id="HYBB3deN_6?59[cqM[_x">
+            <field name="NUM">0.35</field>
+          </shadow>
+          <block type="variables_get" id="~/5?f`h!ei~aQuXl8mMx">
+            <field name="VAR" id="lZdyK-/sZA2];D4jTuaz" variabletype="">Stake</field>
+          </block>
+        </value>
+        <value name="PREDICTION">
+          <shadow type="math_number_positive" id="72K1D(nolt$0h$g9oe=%">
+            <field name="NUM">1</field>
+          </shadow>
+          <block type="logic_ternary" id="X?g6f*B)|.{j*0mqy5p~">
+            <value name="IF">
+              <block type="logic_compare" id="|%MBPWeMy*I,m!b[U^:K">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="variables_get" id="oPk?q$?]HAo2tk|C!Pqs">
+                    <field name="VAR" id="cMv:ag;^f$1G,_}x:3AO" variabletype="">Loss</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="c{WU~(gCfZL@Ox+S}p6F">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="THEN">
+              <block type="math_number" id="h}}jxGgN_k,`+^s!eId,">
+                <field name="NUM">2</field>
+              </block>
+            </value>
+            <value name="ELSE">
+              <block type="math_number" id="25)ISA48,[)ffM7}t03$">
+                <field name="NUM">7</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="before_purchase" id="tX]LC3XlntiDo!,w:y@Q" collapsed="true" deletable="false" x="0" y="1448">
+    <statement name="BEFOREPURCHASE_STACK">
+      <block type="notify" id="ikP3`%@v8g3N5e=dFGqk" collapsed="true">
+        <field name="NOTIFICATION_TYPE">info</field>
+        <field name="NOTIFICATION_SOUND">silent</field>
+        <value name="MESSAGE">
+          <shadow type="text" id="-XI;sav7Ifys/~cpr$|U">
+            <field name="TEXT">T.me/tradegenicguru</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="controls_if" id="a2(9_oLS177$W3AZSP[#">
+            <mutation elseif="1" else="1"></mutation>
+            <value name="IF0">
+              <block type="logic_operation" id="H3Dtt-V/O^D!|~f)2!o.">
+                <field name="OP">AND</field>
+                <value name="A">
+                  <block type="logic_compare" id="jmQ`@xa^.k|W__:f#^73">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="variables_get" id="]MX+}|BSh9`:E!8k4(9Y">
+                        <field name="VAR" id="cMv:ag;^f$1G,_}x:3AO" variabletype="">Loss</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="WDW^RX*qzucGe6Zug_Ab">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="logic_compare" id="ZD3wJI;*jZZFhN.hk^e4">
+                    <field name="OP">LTE</field>
+                    <value name="A">
+                      <block type="last_digit" id="X_DC|xd9fZL$n%yFO5^o"></block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="d^:zP)3wVl1Fq~c@r8sa">
+                        <field name="NUM">2</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="notify" id="MEF(6s:G=gJAIWB*5@Y=">
+                <field name="NOTIFICATION_TYPE">error</field>
+                <field name="NOTIFICATION_SOUND">silent</field>
+                <value name="MESSAGE">
+                  <shadow type="text" id="w{r@J{?c=d:5R[OUXEwy">
+                    <field name="TEXT">Bloqueado: Dígito ≤ 2 para Over 2</field>
+                  </shadow>
+                </value>
+              </block>
+            </statement>
+            <value name="IF1">
+              <block type="logic_operation" id="o/(fG)0L[4rts2x$DyM%">
+                <field name="OP">AND</field>
+                <value name="A">
+                  <block type="logic_compare" id="0LlDgbVD?nj?GpJY9iyN">
+                    <field name="OP">GTE</field>
+                    <value name="A">
+                      <block type="variables_get" id="*v}EsU[v]fE24Q;CEJT!">
+                        <field name="VAR" id="cMv:ag;^f$1G,_}x:3AO" variabletype="">Loss</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="7|f1
